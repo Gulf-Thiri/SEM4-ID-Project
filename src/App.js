@@ -1,39 +1,150 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, NavLink, Link } from "react-router-dom";
 import './App.css';
 
+
 const LoginPage = () => {
+  const [loginMethod, setLoginMethod] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+
+  const handleYaleLogin = () => {
+    window.location.href = "https://secure.its.yale.edu/cas/login?service=https%3A%2F%2Fwww.art.yale.edu%2Fusers%2Fauth%2Fcas%2Fcallback%3Furl%3Dhttps%253A%252F%252Fwww.art.yale.edu%252Flogin";
+  };
+
+  const handleEmailLogin = (e) => {
+    e.preventDefault();
+    console.log('Logging in with:', { email, password, rememberMe });
+  };
+
+  const handleBackToOptions = () => {
+    setLoginMethod(null);
+  };
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    setShowForgotPassword(true);
+  };
+
+  const handleResetPassword = (e) => {
+    e.preventDefault();
+    console.log('Password reset requested for:', resetEmail);
+    // Add your password reset logic here
+    setShowForgotPassword(false);
+    setResetEmail('');
+  };
+
   return (
     <div className="login-page">
-      {/* Main Login Content */}
       <main className="login-container">
         <div className="login-card">
           <h2>School of Art Login</h2>
-          <form>
-            <div className="form-group">
-              <label htmlFor="username">NetID</label>
-              <input 
-                type="text" 
-                id="username" 
-                placeholder="Enter your NetID"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input 
-                type="password" 
-                id="password" 
-                placeholder="Enter your password"
-              />
-            </div>
-            <button type="submit" className="button primary">Log In</button>
-          </form>
-          <div className="login-links">
-            <a href="#">Forgot password?</a>
-            <a href="#">Don't have NetID?</a>
-          </div>
+          
+          {loginMethod === null ? (
+            <>
+              <div className="login-options">
+                <button onClick={() => setLoginMethod('yale')} className="button primary">
+                  Log In with Yale NetID
+                </button>
+                <button onClick={() => setLoginMethod('email')} className="button secondary">
+                  Log In without Yale NetID
+                </button>
+              </div>
+            </>
+          ) : loginMethod === 'yale' ? (
+            <>
+              <p>You will be redirected to Yale's Central Authentication Service.</p>
+              <button onClick={handleYaleLogin} className="button primary">
+                Continue to Yale Login
+              </button>
+              <button onClick={handleBackToOptions} className="button secondary">
+                Back
+              </button>
+            </>
+          ) : (
+            <>
+              <form onSubmit={handleEmailLogin}>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="remember-me-container">
+                  <label className="remember-me-label">
+                    <input 
+                      type="checkbox" 
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
+                    <span>Remember me</span>
+                  </label>
+                </div>
+                <button type="submit" className="button primary">Log In</button>
+              </form>
+              <div className="login-links">
+                <a href="#" onClick={handleForgotPassword}>Forgot password?</a>
+                <button onClick={handleBackToOptions} className="button text-button">
+                  Back to login options
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </main>
+
+      {/* Forgot Password Modal */}
+      {showForgotPassword && (
+        <div className="modal-overlay">
+          <div className="forgot-password-modal">
+            <h3>Forgot your password?</h3>
+            <form onSubmit={handleResetPassword}>
+              <div className="form-group">
+                <label htmlFor="reset-email">Email</label>
+                <input
+                  type="email"
+                  id="reset-email"
+                  placeholder="Enter your email"
+                  value={resetEmail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className="button primary">
+                Send me reset password instructions
+              </button>
+            </form>
+            <button 
+              onClick={() => {
+                setShowForgotPassword(false);
+                setResetEmail('');
+              }} 
+              className="button text-button"
+            >
+              Back to Sign in
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -41,7 +152,6 @@ const LoginPage = () => {
 const ContactPage = () => {
   return (
     <div className="contact-page">
-      {/* Header is already included in your App.js */}
       
       {/* Main Contact Content */}
       <main className="contact-container">
@@ -130,10 +240,11 @@ const YaleArtSchool = () => {
             <Route path="/faculty" element={<Faculty />} />
             <Route path="/admissions" element={<Admissions />} />
             <Route path="/events" element={<Events />} />
-            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/publication" element={<Publication />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/about/contact" element={<ContactPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/visit" element={<VisitPage />} />
           </Routes>
         </main>
         <Footer />
@@ -143,42 +254,132 @@ const YaleArtSchool = () => {
 };
 
 const Header = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add auth state
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <header className="header">
-      <div className="header-top-bar">
-        <div className="logo-container">
-          <img src="/images/Yale_logo.jpeg" alt="Yale University Logo" className="university-logo" />
-          <span className="university-name">Yale University</span>
+    <>
+      <header className="header">
+        {/* Top Utility Bar */}
+        <div className="header-top-bar">
+          <div className="container">
+            <div className="logo-container">
+              <img
+                src="/images/Yale_logo.jpeg"
+                alt="Yale University Logo"
+                className="university-logo"
+              />
+              <span className="university-name">Yale University</span>
+            </div>
+            <nav className="utility-nav">
+              <ul>
+                <li><a href="https://www.yale.edu/">Yale.edu</a></li>
+                <li><a href="https://directory.yale.edu/">Directory</a></li>
+                
+                <li><a href="/about/contact">Contact</a></li>
+                <li><a href="/visit">Visit</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
-        <nav className="utility-nav">
-          <ul>
-            <li><a href="https://www.yale.edu/">Yale.edu</a></li>
-            <li><a href="#">Directory</a></li>
-            <li><a href="#">MyYale</a></li>
-          </ul>
-        </nav>
+
+        {/* Main Navigation */}
+        <div className="main-navigation">
+          <div className="container">
+            <div className="nav-left">
+              <h1 className="school-name">
+                <Link to="/">Yale School of Art</Link>
+              </h1>
+              
+              <button 
+                className="mobile-menu-toggle" 
+                onClick={toggleMobileMenu}
+                aria-label="Toggle navigation menu"
+              >
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
+              </button>
+            </div>
+
+            <nav className={`main-nav ${isMobileMenuOpen ? 'open' : ''}`}>
+              <ul>
+                <li><NavLink to="/" end activeclassname="active">Home</NavLink></li>
+                <li><NavLink to="/programs" activeclassname="active">Programs</NavLink></li>
+                <li><NavLink to="/faculty" activeclassname="active">Faculty</NavLink></li>
+                <li><NavLink to="/admissions" activeclassname="active">Admissions</NavLink></li>
+                <li><NavLink to="/events" activeclassname="active">Events</NavLink></li>
+                <li><NavLink to="/publication" activeclassname="active">Publications</NavLink></li>
+              </ul>
+            </nav>
+
+            <div className="nav-right">
+              <button className="search-button" aria-label="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+              <button className="profile-button" onClick={toggleSidebar}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Sidebar */}
+      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+        <div className="sidebar-header">
+          <button className="close-btn" onClick={toggleSidebar} aria-label="Close sidebar">
+            &times;
+          </button>
+        </div>
+        <div className="profile-info">
+          <img 
+            src="/images/avatar" 
+            alt="Profile Avatar" 
+            className="profile-avatar" 
+          />
+          <h2>{isLoggedIn ? "Welcome Back!" : "Welcome!"}</h2>
+          {isLoggedIn && <p className="user-email">user@yale.edu</p>}
+        </div>
+        <ul className="sidebar-menu">
+          {isLoggedIn ? (
+            <>
+              <li><Link to="/dashboard" onClick={toggleSidebar}>Dashboard</Link></li>
+              <li><Link to="/account-settings" onClick={toggleSidebar}>Account Settings</Link></li>
+              <li><Link to="/my-courses" onClick={toggleSidebar}>My Courses</Link></li>
+              <li><Link to="/favorites" onClick={toggleSidebar}>Favorites</Link></li>
+              <li><button className="logout-btn" onClick={() => setIsLoggedIn(false)}>Logout</button></li>
+            </>
+          ) : (
+            <>
+              <li><Link to="/login" onClick={toggleSidebar}>Login</Link></li>
+              <li><Link to="/signup" onClick={toggleSidebar}>Sign Up</Link></li>
+            </>
+          )}
+        </ul>
       </div>
-      
-      <div className="main-navigation">
-        <h1 className="school-name">
-          <Link to="/">School of Art</Link>
-        </h1>
-        <nav className="main-nav">
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/programs">Programs</Link></li>
-            <li><Link to="/faculty">Faculty</Link></li>
-            <li><Link to="/admissions">Admissions</Link></li>
-            <li><Link to="/events">Events</Link></li>
-            <li><Link to="/gallery">Gallery</Link></li>
-            <li><Link to="/login">Login</Link></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+
+      {/* Background overlay when sidebar is open */}
+      {isSidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
+    </>
   );
 };
-
 const Home = () => {
   return (
     <div className="home-page">
@@ -193,21 +394,29 @@ const Home = () => {
 const HeroSection = () => {
   return (
     <section className="hero">
-      <div className="container">
+      <div className="container hero-grid">
+        {/* Left side: Content */}
         <div className="hero-content">
-          <h2>Advancing Art Through Critical Inquiry and Creative Practice</h2>
-          <p>Yale School of Art is a graduate school that confers MFAs in Graphic Design, Painting/Printmaking, Photography, and Sculpture</p>
+          <h1>Welcome to Yale School of Art</h1>
+          <p>
+            The Yale School of Art offers an intensive program for aspiring artists, with Master of Fine Arts degrees in <strong>Graphic Design</strong>, <strong>Painting/Printmaking</strong>, <strong>Photography</strong>, and <strong>Sculpture</strong>. 
+            Ranked among the best in the world, our school fosters critical inquiry, personal vision, and innovative practice.
+          </p>
           <div className="hero-buttons">
             <Link to="/programs" className="button primary">Explore Programs</Link>
-            <Link to="/admissions" className="button secondary">Apply Now</Link>
+            <a href="/Admissions" className="button secondary" target="_blank" rel="noopener noreferrer">
+              Apply to Yale Art
+            </a>
           </div>
         </div>
-      </div>
-      <div className="hero-image">
-        <img 
-          src="/images/art_studio.jpg" 
-          alt="Art studio at Yale"
-        />
+
+        {/* Right side: Image */}
+        <div className="hero-image">
+          <img 
+            src="/images/art_studio.jpg" 
+            alt="Students at work inside Yale School of Art"
+          />
+        </div>
       </div>
     </section>
   );
@@ -225,7 +434,7 @@ const QuickLinks = () => {
         <div className="quick-link-card">
           <h3>Student Work</h3>
           <p>Explore recent work from our MFA candidates</p>
-          <Link to="/gallery" className="button small">View Gallery</Link>
+          <Link to="/publication" className="button small">View Publications</Link>
         </div>
         <div className="quick-link-card">
           <h3>Visiting Artists</h3>
@@ -300,22 +509,22 @@ const FeaturedPrograms = () => {
           <div className="program-card">
             <h3>Graphic Design</h3>
             <p>A two-year program emphasizing the development of a cohesive, investigative body of work.</p>
-            <Link to="/programs/graphic-design" className="button small">Learn More</Link>
+            <Link to="/programs" className="button small">Learn More</Link>
           </div>
           <div className="program-card">
             <h3>Painting/Printmaking</h3>
             <p>Focusing on contemporary approaches to painting and printmaking as parallel disciplines.</p>
-            <Link to="/programs/painting-printmaking" className="button small">Learn More</Link>
+            <Link to="/programs" className="button small">Learn More</Link>
           </div>
           <div className="program-card">
             <h3>Photography</h3>
             <p>Exploring photography as an artistic medium with a focus on conceptual development.</p>
-            <Link to="/programs/photography" className="button small">Learn More</Link>
+            <Link to="/programs" className="button small">Learn More</Link>
           </div>
           <div className="program-card">
             <h3>Sculpture</h3>
             <p>Encouraging experimentation across diverse media and approaches to three-dimensional work.</p>
-            <Link to="/programs/sculpture" className="button small">Learn More</Link>
+            <Link to="/programs" className="button small">Learn More</Link>
           </div>
         </div>
       </div>
@@ -324,6 +533,73 @@ const FeaturedPrograms = () => {
 };
 
 const Programs = () => {
+  const [activeTab, setActiveTab] = useState('graphic-design');
+
+  const programsData = {
+    'graphic-design': {
+      title: 'Graphic Design',
+      description: [
+        "The graphic design program focuses on the development of a cohesive, investigative body of work, also known as the student's thesis. At Yale, the graphic design thesis is conceived as a loose framework within which each student's visual method is deployed across many diverse projects during the two-year course of study.",
+        "While every thesis project is unique, there are several common features: a focus on methodology, the application of a visual method to studio work, and the organization of the work in a thoughtfully argued written document and exhibition."
+      ],
+      duration: '2 years',
+      degree: 'MFA',
+      students: '12',
+      images: [
+        'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2023-05/gd_thesis_show_2023_01.jpg',
+        'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2021-06/gd_show_2020.jpg?itok=DEF456',
+        'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+      ]
+    },
+    'painting-printmaking': {
+      title: 'Painting/Printmaking',
+      description: [
+        "The Painting/Printmaking program is committed to broadening the understanding of the disciplines of painting and printmaking. The program encourages diversity of practice and interpretation, innovation in technology, and a combination of experimentation and traditional practice.",
+        "Students work independently in private studios and meet weekly for individual critiques with faculty and visiting artists. The program hosts regular group critiques and seminars to foster dialogue and exchange."
+      ],
+      duration: '2 years',
+      degree: 'MFA',
+      students: '20',
+      images: [
+        '/images/student_work_painting_1.jpg',
+        '/images/Yale_studwork_painting1.avif',
+        ''
+      ]
+    },
+    'photography': {
+      title: 'Photography',
+      description: [
+        "The Photography program provides students with the opportunity to explore photography as a means of artistic expression and conceptual inquiry. The curriculum emphasizes the development of individual vision through a combination of technical instruction, critical analysis, and engagement with contemporary art practice.",
+        "Students have access to state-of-the-art facilities including digital labs, darkrooms, and shooting studios. The program fosters interdisciplinary approaches and encourages students to experiment with the boundaries of photographic practice."
+      ],
+      duration: '2 years',
+      degree: 'MFA',
+      students: '10',
+      images: [
+        'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2021-06/photo_lab.jpg?itok=MNO345',
+        'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2021-06/photo_exhibition.jpg?itok=PQR678',
+        'https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+      ]
+    },
+    'sculpture': {
+      title: 'Sculpture',
+      description: [
+        "The Sculpture program supports a wide range of approaches, from traditional object-making to installation, video, and performance. The program emphasizes the development of individual artistic practice within a context of critical discourse and engagement with contemporary art.",
+        "Students have access to extensive facilities including wood and metal shops, a foundry, and digital fabrication tools. The program encourages experimentation with materials and processes while maintaining a strong emphasis on conceptual development."
+      ],
+      duration: '2 years',
+      degree: 'MFA',
+      students: '12',
+      images: [
+        '/images/student_work_sculpture1.jpg',
+        '/images/student_work_sculpture2.webp',
+        'https://images.unsplash.com/photo-1566936737687-8f392a237b8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+      ]
+    }
+  };
+
+  const activeProgram = programsData[activeTab];
+
   return (
     <div className="programs-page">
       <section className="page-header">
@@ -335,41 +611,71 @@ const Programs = () => {
       <section className="program-details">
         <div className="container">
           <div className="program-tabs">
-            <button className="active">Graphic Design</button>
-            <button>Painting/Printmaking</button>
-            <button>Photography</button>
-            <button>Sculpture</button>
+            <button 
+              className={activeTab === 'graphic-design' ? 'active' : ''}
+              onClick={() => setActiveTab('graphic-design')}
+            >
+              Graphic Design
+            </button>
+            <button 
+              className={activeTab === 'painting-printmaking' ? 'active' : ''}
+              onClick={() => setActiveTab('painting-printmaking')}
+            >
+              Painting/Printmaking
+            </button>
+            <button 
+              className={activeTab === 'photography' ? 'active' : ''}
+              onClick={() => setActiveTab('photography')}
+            >
+              Photography
+            </button>
+            <button 
+              className={activeTab === 'sculpture' ? 'active' : ''}
+              onClick={() => setActiveTab('sculpture')}
+            >
+              Sculpture
+            </button>
           </div>
           <div className="program-content">
-            <h2>Graphic Design</h2>
-            <p>The graphic design program focuses on the development of a cohesive, investigative body of work, also known as the student's thesis. At Yale, the graphic design thesis is conceived as a loose framework within which each student's visual method is deployed across many diverse projects during the two-year course of study.</p>
-            <p>While every thesis project is unique, there are several common features: a focus on methodology, the application of a visual method to studio work, and the organization of the work in a thoughtfully argued written document and exhibition.</p>
+            <h2>{activeProgram.title}</h2>
+            {activeProgram.description.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
             
             <div className="program-stats">
               <div className="stat-item">
                 <h4>Duration</h4>
-                <p>2 years</p>
+                <p>{activeProgram.duration}</p>
               </div>
               <div className="stat-item">
                 <h4>Degree</h4>
-                <p>MFA</p>
+                <p>{activeProgram.degree}</p>
               </div>
               <div className="stat-item">
                 <h4>Students per year</h4>
-                <p>12</p>
+                <p>{activeProgram.students}</p>
               </div>
             </div>
             
             <div className="program-images">
-              <img 
-                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Graphic design student work"
-              />
-              <img 
-                src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Graphic design studio"
-              />
-            </div>
+        {activeProgram.images.map((image, index) => (
+          <img 
+            key={index}
+            src={image}
+            alt={`${activeProgram.title} ${index === 0 ? 'student work' : index === 1 ? 'studio/facility' : 'program overview'}`}
+            onError={(e) => {
+              e.target.onerror = null;
+              // Cycle through progressively more generic fallbacks
+              const fallbacks = [
+                'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2022-06/gd_archive_work.jpg',
+                'https://aperture.org/wp-content/uploads/2020/09/Graphic-Design-Showcase.jpg',
+                'https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+              ];
+              e.target.src = fallbacks.find(url => url.includes(activeTab)) || fallbacks[2];
+            }}
+          />
+        ))}
+      </div>
             
             <div className="program-cta">
               <Link to="/admissions" className="button primary">Admissions Information</Link>
@@ -505,8 +811,8 @@ const Admissions = () => {
             </div>
           </div>
           <div className="admissions-cta">
-            <a href="#" className="button primary">Begin Application</a>
-            <a href="#" className="button secondary">Download Viewbook</a>
+            <a href="https://admissions.yale.edu/" className="button primary">Begin Application</a>
+            <a href="https://yale.box.com/s/spazpelub0hp314m1irbbvs3g3ovfwd2" className="button secondary">Download Viewbook</a>
           </div>
         </div>
       </section>
@@ -514,7 +820,7 @@ const Admissions = () => {
         <div className="container">
           <h2>Financial Aid</h2>
           <p>All admitted MFA students receive a generous financial aid package that includes full tuition remission and a stipend for living expenses. Additional funding is available for research travel, materials, and summer study.</p>
-          <a href="#" className="button">Learn More About Financial Aid</a>
+          <a href="https://www.art.yale.edu/about/resources/financial-aid" className="button">Learn More About Financial Aid</a>
         </div>
       </section>
     </div>
@@ -582,7 +888,7 @@ const Events = () => {
             </div>
           </div>
           <div className="view-all-events">
-            <Link to="#" className="button">View Full Calendar</Link>
+            <Link to="https://soapublicevents.eventcalendarapp.com/" className="button">View Full Calendar</Link>
           </div>
         </div>
       </section>
@@ -590,91 +896,326 @@ const Events = () => {
   );
 };
 
-const Gallery = () => {
+const allPublicationsData = [
+  {
+    id: 1,
+    title: 'First Year MFA Work',
+    description: 'Annual publication featuring work by first-year MFA students across all disciplines.',
+    imageUrl: 'https://www.art.yale.edu/sites/default/files/styles/publication_cover/public/2021-03/2021_first_year_mfa_cover.jpg',
+    linkUrl: 'https://www.art.yale.edu/publications/first-year-mfa-work',
+    category: 'Student Publications' // Added category
+  },
+  {
+    id: 2,
+    title: 'Second Year MFA Work',
+    description: 'Showcase of graduating MFA candidates\' thesis work from all departments.',
+    imageUrl: 'https://www.art.yale.edu/sites/default/files/styles/publication_cover/public/2021-03/2020_second_year_mfa_cover.jpg',
+    linkUrl: 'https://www.art.yale.edu/publications/second-year-mfa-work',
+    category: 'Student Publications' // Added category
+  },
+  {
+    id: 3,
+    title: 'Graphic Design Thesis',
+    description: 'Compilation of Graphic Design MFA thesis projects and research.',
+    imageUrl: 'https://www.art.yale.edu/sites/default/files/styles/publication_cover/public/2021-03/2020_graphic_design_thesis_cover.jpg',
+    linkUrl: 'https://www.art.yale.edu/publications/graphic-design-thesis',
+    category: 'Student Publications' // Added category
+  },
+  {
+    id: 4,
+    title: 'Painting/Printmaking Thesis',
+    description: 'Documentation of Painting/Printmaking MFA thesis exhibitions.',
+    imageUrl: 'https://www.art.yale.edu/sites/default/files/styles/publication_cover/public/2021-03/2019_painting_printmaking_thesis_cover.jpg',
+    linkUrl: 'https://www.art.yale.edu/publications/painting-printmaking-thesis',
+    category: 'Student Publications' // Added category - Assuming this is student work
+  },
+  {
+    id: 5,
+    title: 'Photography Thesis',
+    description: 'Collection of Photography MFA thesis projects and artist statements.',
+    imageUrl: 'https://www.art.yale.edu/sites/default/files/styles/publication_cover/public/2021-03/2019_photography_thesis_cover.jpg',
+    linkUrl: 'https://www.art.yale.edu/publications/photography-thesis',
+    category: 'Student Publications' // Added category - Assuming this is student work
+  },
+  {
+    id: 6,
+    title: 'Sculpture Thesis',
+    description: 'Documentation of Sculpture MFA thesis work and installations.',
+    imageUrl: 'https://www.art.yale.edu/sites/default/files/styles/publication_cover/public/2021-03/2018_sculpture_thesis_cover.jpg',
+    linkUrl: 'https://www.art.yale.edu/publications/sculpture-thesis',
+    category: 'Student Publications' // Added category - Assuming this is student work
+  },
+  // --- Add more publications with appropriate categories ---
+  {
+    id: 7,
+    title: 'Sample Exhibition Catalog',
+    description: 'Catalog for a fictional exhibition held at Green Gallery.',
+    imageUrl: 'https://via.placeholder.com/300x400/cccccc/969696?text=Exhibition+Catalog', // Placeholder image
+    linkUrl: '#', // Placeholder link
+    category: 'Exhibition Catalogs'
+  },
+  {
+    id: 8,
+    title: 'Faculty Research Publication',
+    description: 'Research paper published by a faculty member.',
+    imageUrl: 'https://via.placeholder.com/300x400/dddddd/888888?text=Faculty+Research', // Placeholder image
+    linkUrl: '#', // Placeholder link
+    category: 'Faculty Research'
+  },
+   {
+    id: 9,
+    title: 'Archival Document Example',
+    description: 'An example of an older, archived publication.',
+    imageUrl: 'https://via.placeholder.com/300x400/eeeeee/777777?text=Archival+Pub', // Placeholder image
+    linkUrl: '#', // Placeholder link
+    category: 'Archival Publications'
+  },
+];
+
+const Publication = () => {
+  // 2. Manage State for the active filter
+  const [activeFilter, setActiveFilter] = useState('All'); // Default filter
+
+  // 3. Filter Logic: Determine which publications to show
+  const filteredPublications = activeFilter === 'All'
+    ? allPublicationsData // Show all if 'All' is selected
+    : allPublicationsData.filter(pub => pub.category === activeFilter); // Otherwise, filter by category
+
+  // Function to handle button clicks and update state
+  const handleFilterClick = (filter) => {
+    setActiveFilter(filter);
+  };
+
+  // Define the filter categories for buttons
+  const filterCategories = ['All', 'Student Publications', 'Exhibition Catalogs', 'Faculty Research', 'Archival Publications'];
+
   return (
-    <div className="gallery-page">
+    <div className="publication-page">
       <section className="page-header">
         <div className="container">
-          <h1>Gallery</h1>
-          <p>Explore work by current students, alumni, and faculty of the Yale School of Art.</p>
+          <h1>Publications</h1>
+          <p>Explore publications by the Yale School of Art community, including student work, faculty research, and exhibition catalogs.</p>
         </div>
       </section>
-      <section className="gallery-content">
+      <section className="publication-content">
         <div className="container">
-          <div className="gallery-filter">
-            <button className="active">All</button>
-            <button>Graphic Design</button>
-            <button>Painting/Printmaking</button>
-            <button>Photography</button>
-            <button>Sculpture</button>
+          <div className="publication-filter">
+            {/* 4. & 6. Add onClick handlers and dynamic active class */}
+            {filterCategories.map(category => (
+              <button
+                key={category}
+                className={activeFilter === category ? 'active' : ''} // Apply 'active' class conditionally
+                onClick={() => handleFilterClick(category)} // Update state on click
+              >
+                {category}
+              </button>
+            ))}
           </div>
-          <div className="gallery-grid">
-            <div className="gallery-item">
-              <img 
-                src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Student artwork"
-              />
-              <div className="gallery-item-info">
-                <h3>Untitled</h3>
-                <p>Jane Smith, Painting '23</p>
-              </div>
-            </div>
-            <div className="gallery-item">
-              <img 
-                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Student artwork"
-              />
-              <div className="gallery-item-info">
-                <h3>Systematic</h3>
-                <p>Alex Johnson, Graphic Design '23</p>
-              </div>
-            </div>
-            <div className="gallery-item">
-              <img 
-                src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Student artwork"
-              />
-              <div className="gallery-item-info">
-                <h3>Composition #4</h3>
-                <p>Maria Garcia, Graphic Design '22</p>
-              </div>
-            </div>
-            <div className="gallery-item">
-              <img 
-                src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Student artwork"
-              />
-              <div className="gallery-item-info">
-                <h3>Erosion</h3>
-                <p>David Kim, Sculpture '23</p>
-              </div>
-            </div>
-            <div className="gallery-item">
-              <img 
-                src="https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Student artwork"
-              />
-              <div className="gallery-item-info">
-                <h3>Passage</h3>
-                <p>Sarah Chen, Photography '22</p>
-              </div>
-            </div>
-            <div className="gallery-item">
-              <img 
-                src="https://images.unsplash.com/photo-1578926375605-eaf7559b1458?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                alt="Student artwork"
-              />
-              <div className="gallery-item-info">
-                <h3>Monolith</h3>
-                <p>James Wilson, Sculpture Faculty</p>
-              </div>
-            </div>
+
+          {/* 5. Dynamic Rendering: Map over the filtered list */}
+          <div className="publication-grid">
+            {filteredPublications.length > 0 ? (
+              filteredPublications.map(pub => (
+                <div className="publication-item" key={pub.id}> {/* Use a unique key */}
+                  <img
+                    src={pub.imageUrl}
+                    alt={`${pub.title} publication`}
+                  />
+                  <div className="publication-item-info">
+                    <h3>{pub.title}</h3>
+                    <p>{pub.description}</p>
+                    <a href={pub.linkUrl} className="publication-item-link" target="_blank" rel="noopener noreferrer"> {/* Added target and rel for external links */}
+                      View Publication
+                    </a>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No publications found for this category.</p> // Optional: Message when no items match
+            )}
+          </div>
+
+          <div className="publication-info">
+            <h2>About Our Publications</h2>
+            <p>The Yale School of Art produces a variety of publications documenting student work, exhibitions, and faculty research. These publications serve as an archive of the School's creative output and a resource for the art community.</p>
+            <p>Publications include annual documentation of thesis work, exhibition catalogs from our Green Gallery and Edgewood Gallery, faculty monographs, and special projects. Many publications are available for purchase through the School's office.</p>
+            <p>For inquiries about specific publications or availability, please contact the publications office at <a href="mailto:art.publications@yale.edu">art.publications@yale.edu</a>.</p>
           </div>
           <div className="view-all-works">
-            <Link to="#" className="button">View More Works</Link>
+            {/* This button now links externally, which is fine. If you wanted it to also reset the filter, you could add an onClick */}
+            <a href="https://www.art.yale.edu/publications" className="button primary" target="_blank" rel="noopener noreferrer">
+              View All Publications (External)
+            </a>
+            {/* Optional: Add a button to reset filter within the page */}
+            {/* <button className="button secondary" onClick={() => handleFilterClick('All')}>
+              Show All Here
+            </button> */}
           </div>
         </div>
       </section>
+    </div>
+  );
+};
+
+const VisitPage = () => {
+  return (
+    <div className="visit-page">
+      
+        <title>Visit | Yale School of Art</title>
+        <meta name="description" content="Plan your visit to the Yale School of Art. Find information about our location, hours, exhibitions, and public events." />
+    
+      <section className="page-header">
+        <div className="container">
+          <h1>Visit Yale School of Art</h1>
+          <p className="lead">Experience our community of artists, exhibitions, and public programs</p>
+        </div>
+      </section>
+
+      <div className="container main-content">
+        <div className="visit-grid">
+          {/* Location Section */}
+          <section className="visit-section location-section">
+            <h2 className="section-title">Location & Hours</h2>
+            <div className="content-card">
+              <div className="map-container">
+                <iframe 
+                  title="Yale School of Art Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2997.347231018541!2d-72.9343229242707!3d41.30826220169564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e7d9b1a99d8c7d%3A0x4a01e8dfc4b3e6e5!2sYale%20School%20of%20Art!5e0!3m2!1sen!2sus!4v1712345678901!5m2!1sen!2sus"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+              
+              <div className="address-hours">
+                <h3>Green Hall Gallery</h3>
+                <address>
+                  Yale School of Art<br />
+                  1156 Chapel Street<br />
+                  New Haven, CT 06511
+                </address>
+                
+                <div className="hours">
+                  <h4>Gallery Hours:</h4>
+                  <ul>
+                    <li><strong>Monday-Friday:</strong> 9:00am - 5:00pm</li>
+                    <li><strong>Weekends:</strong> Closed</li>
+                    <li><strong>Holidays:</strong> Closed</li>
+                  </ul>
+                  <p className="note">Hours may vary during exhibitions and school breaks</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Exhibitions Section */}
+          <section className="visit-section exhibitions-section">
+            <h2 className="section-title">Current Exhibitions</h2>
+            <div className="content-card">
+              <div className="exhibition-highlight">
+                <h3>Graduate Thesis Exhibition</h3>
+                <p className="dates">May 1 - June 15, 2024</p>
+                <p>Featuring work from our graduating MFA students across all disciplines.</p>
+                <a href="/exhibitions/thesis-2024" className="button">View Exhibition Details</a>
+              </div>
+              
+              <div className="upcoming-exhibitions">
+                <h4>Upcoming Exhibitions:</h4>
+                <ul>
+                  <li>
+                    <strong>Faculty Biennial:</strong> July 10 - August 30, 2024
+                  </li>
+                  <li>
+                    <strong>First-Year Showcase:</strong> September 15 - October 30, 2024
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Visitor Information */}
+          <section className="visit-section visitor-info">
+            <h2 className="section-title">Visitor Information</h2>
+            <div className="content-card">
+              <div className="info-grid">
+                <div className="info-item">
+                  <h3>Accessibility</h3>
+                  <p>Green Hall is fully accessible. Wheelchair access is available at the Chapel Street entrance.</p>
+                </div>
+                
+                <div className="info-item">
+                  <h3>Parking</h3>
+                  <p>Limited street parking is available. We recommend using Yale's visitor parking lots:</p>
+                  <ul>
+                    <li>Yale Lot 51 (150 York Street)</li>
+                    <li>Yale Lot 78 (260 Whitney Avenue)</li>
+                  </ul>
+                </div>
+                
+                <div className="info-item">
+                  <h3>Tours</h3>
+                  <p>Guided tours are available by appointment for prospective students and groups.</p>
+                  <a href="/about/tours" className="button outline">Schedule a Tour</a>
+                </div>
+                
+                <div className="info-item">
+                  <h3>Contact</h3>
+                  <p>For visitor inquiries:</p>
+                  <p>
+                    <strong>Phone:</strong> (203) 432-2600<br />
+                    <strong>Email:</strong> art.visitors@yale.edu
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Events Section */}
+          <section className="visit-section events-section">
+            <h2 className="section-title">Public Events</h2>
+            <div className="content-card">
+              <div className="event-highlight">
+                <h3>Artist Lecture Series</h3>
+                <p className="date">Every Thursday at 6:30pm during the academic year</p>
+                <p>Free and open to the public. Featuring visiting artists, critics, and scholars.</p>
+                <a href="/events/lectures" className="button">View Lecture Schedule</a>
+              </div>
+              
+              <div className="calendar-cta">
+                <h4>Full Event Calendar</h4>
+                <p>Explore all public lectures, exhibitions, and special events at the School of Art.</p>
+                <a href="/events" className="button outline">View Full Calendar</a>
+              </div>
+            </div>
+          </section>
+
+          {/* Directions Section */}
+          <section className="visit-section directions-section">
+            <h2 className="section-title">Directions</h2>
+            <div className="content-card">
+              <div className="transport-options">
+                <div className="option">
+                  <h3>By Train</h3>
+                  <p>New Haven Union Station is served by Amtrak and Metro-North. The School of Art is a 15-minute walk or 5-minute taxi ride from the station.</p>
+                </div>
+                
+                <div className="option">
+                  <h3>By Car</h3>
+                  <p>From I-91: Take exit 3 (Trumbull Street). Follow signs for Yale University. Parking is available in nearby Yale lots.</p>
+                </div>
+                
+                <div className="option">
+                  <h3>By Air</h3>
+                  <p>Tweed New Haven Airport (HVN) is 5 miles away. Larger international airports include Bradley International (BDL) and JFK/LGA.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
   );
 };
@@ -700,7 +1241,8 @@ const Footer = () => {
               <li><Link to="/faculty">Faculty</Link></li>
               <li><Link to="/admissions">Admissions</Link></li>
               <li><Link to="/events">Events</Link></li>
-              <li><Link to="/gallery">Gallery</Link></li>
+              <li><Link to="/publication">Publications</Link></li>
+              <li><Link to="/visit">Visit</Link></li>
             </ul>
           </div>
           <div className="footer-col">
@@ -739,8 +1281,8 @@ const Footer = () => {
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} Yale School of Art. All rights reserved.</p>
           <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Accessibility</a></li>
+            <li><a href="https://privacy.yale.edu/resources/privacy-statement">Privacy Policy</a></li>
+            <li><a href="https://your.yale.edu/policies-procedures/policies/1605-web-accessibility-policy">Accessibility</a></li>
             <li><Link to="/about/contact">Contact</Link></li>
           </ul>
         </div>
