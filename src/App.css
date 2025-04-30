@@ -2251,3 +2251,264 @@ address {
     font-weight: normal;
   }
 }
+
+/* Support Page Styles */
+.support-page {
+  background-color: var(--light-gray);
+}
+
+.support-content {
+  padding: 60px 0;
+}
+
+.support-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 50px;
+}
+
+.support-intro h2 {
+  color: var(--yale-blue);
+  margin-bottom: 20px;
+}
+
+.giving-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.giving-option {
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.giving-option:hover {
+  transform: translateY(-5px);
+}
+
+.giving-icon {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 53, 107, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.giving-icon svg {
+  width: 30px;
+  height: 30px;
+  color: var(--yale-blue);
+}
+
+.giving-option h3 {
+  color: var(--yale-blue);
+  margin-bottom: 15px;
+}
+
+.giving-option p {
+  margin-bottom: 20px;
+  color: var(--dark-gray);
+}
+
+.impact-section {
+  background-color: var(--yale-blue);
+  color: var(--white);
+  padding: 60px 0;
+  margin: 60px 0;
+  text-align: center;
+}
+
+.impact-section h2 {
+  margin-bottom: 40px;
+  color: var(--white);
+}
+
+.impact-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.impact-stat {
+  padding: 20px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.donor-recognition {
+  margin: 60px 0;
+  text-align: center;
+}
+
+.donor-recognition h2 {
+  color: var(--yale-blue);
+  margin-bottom: 20px;
+}
+
+.donor-recognition p {
+  max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+.recognition-levels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 40px auto 0;
+}
+
+.recognition-level {
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border-top: 4px solid var(--yale-blue);
+}
+
+.recognition-level h4 {
+  color: var(--yale-blue);
+  margin-bottom: 10px;
+}
+
+.recognition-level p {
+  color: var(--dark-gray);
+  font-size: 0.95rem;
+}
+
+.planned-giving {
+  background-color: var(--white);
+  padding: 60px;
+  border-radius: 8px;
+  margin: 60px 0;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.planned-giving h2 {
+  color: var(--yale-blue);
+  margin-bottom: 20px;
+}
+
+.planned-giving p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+
+.planned-giving-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  text-align: left;
+}
+
+.planned-giving-option {
+  padding: 20px;
+  border-left: 3px solid var(--yale-blue);
+}
+
+.planned-giving-option h4 {
+  color: var(--yale-blue);
+  margin-bottom: 10px;
+}
+
+.contact-support {
+  text-align: center;
+  margin: 60px 0 30px;
+}
+
+.contact-support h2 {
+  color: var(--yale-blue);
+  margin-bottom: 20px;
+}
+
+.contact-support p {
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.contact-detail {
+  padding: 20px;
+}
+
+.contact-detail h5 {
+  color: var(--yale-blue);
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.contact-detail p {
+  margin-bottom: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .support-intro,
+  .donor-recognition,
+  .planned-giving {
+    padding: 40px 20px;
+  }
+  
+  .impact-stats,
+  .recognition-levels,
+  .planned-giving-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .giving-options {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .planned-giving {
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .impact-stat,
+  .recognition-level,
+  .planned-giving-option {
+    padding: 15px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+}

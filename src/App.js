@@ -245,7 +245,8 @@ const YaleArtSchool = () => {
             <Route path="/about/contact" element={<ContactPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/visit" element={<VisitPage />} />
-          </Routes>
+            <Route path="/support" element={<Support />} />  
+            </Routes>
         </main>
         <Footer />
       </div>
@@ -319,6 +320,7 @@ const Header = () => {
                 <li><NavLink to="/admissions" activeclassname="active">Admissions</NavLink></li>
                 <li><NavLink to="/events" activeclassname="active">Events</NavLink></li>
                 <li><NavLink to="/publication" activeclassname="active">Publications</NavLink></li>
+                <li><NavLink to="/support" activeclassname="active">Support</NavLink></li>
               </ul>
             </nav>
 
@@ -350,7 +352,7 @@ const Header = () => {
         </div>
         <div className="profile-info">
           <img 
-            src="/images/avatar" 
+            src="/images/avatar.jpg" 
             alt="Profile Avatar" 
             className="profile-avatar" 
           />
@@ -546,9 +548,9 @@ const Programs = () => {
       degree: 'MFA',
       students: '12',
       images: [
-        'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2023-05/gd_thesis_show_2023_01.jpg',
-        'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2021-06/gd_show_2020.jpg?itok=DEF456',
-        'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+        '/images/student_work_GraphicDesign1.png',
+        '/images/student_work_GraphicDesign2.png',
+        '/images/student_work_GraphicDesign3.png'
       ]
     },
     'painting-printmaking': {
@@ -562,8 +564,8 @@ const Programs = () => {
       students: '20',
       images: [
         '/images/student_work_painting_1.jpg',
-        '/images/Yale_studwork_painting1.avif',
-        ''
+        '/images/student_work_painting_2.png',
+        '/images/student_work_painting_3.png'
       ]
     },
     'photography': {
@@ -576,9 +578,9 @@ const Programs = () => {
       degree: 'MFA',
       students: '10',
       images: [
-        'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2021-06/photo_lab.jpg?itok=MNO345',
-        'https://www.art.yale.edu/sites/default/files/styles/gallery_image/public/2021-06/photo_exhibition.jpg?itok=PQR678',
-        'https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+        '/images/student_work_Photography1.png',
+        '/images/student_work_Photography2.png',
+        '/images/student_work_Photography3.png'
       ]
     },
     'sculpture': {
@@ -593,7 +595,7 @@ const Programs = () => {
       images: [
         '/images/student_work_sculpture1.jpg',
         '/images/student_work_sculpture2.webp',
-        'https://images.unsplash.com/photo-1566936737687-8f392a237b8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+        '/images/student_work_sculpture3.png'
       ]
     }
   };
@@ -758,7 +760,7 @@ const Faculty = () => {
             </div>
           </div>
           <div className="view-all-faculty">
-            <Link to="#" className="button">View All Faculty</Link>
+            <Link to="https://www.art.yale.edu/about/people/faculty-and-staff" className="button">View All Faculty</Link>
           </div>
         </div>
       </section>
@@ -1220,6 +1222,140 @@ const VisitPage = () => {
   );
 };
 
+const Support = () => {
+  return (
+    <div className="support-page">
+      <section className="page-header">
+        <div className="container">
+          <h1>Support the School of Art</h1>
+          <p>Your generosity helps sustain our mission to educate artists of exceptional talent</p>
+        </div>
+      </section>
+
+      <section className="support-content">
+        <div className="container">
+          <div className="support-intro">
+            <h2>Ways to Give</h2>
+            <p>The Yale School of Art relies on the generosity of alumni and friends to maintain its position as one of the world's leading art schools. Your support helps provide scholarships for talented students, funds faculty research and teaching, and maintains our facilities and resources.</p>
+          </div>
+
+          <div className="giving-options">
+            <div className="giving-option">
+              <div className="giving-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"/>
+                </svg>
+              </div>
+              <h3>Annual Fund</h3>
+              <p>Unrestricted gifts to the Annual Fund provide flexible resources that address the School's most pressing needs.</p>
+              <a href="https://giving.yale.edu/art" className="button secondary">Give Now</a>
+            </div>
+
+            <div className="giving-option">
+              <div className="giving-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                </svg>
+              </div>
+              <h3>Scholarship Support</h3>
+              <p>Help ensure that the most talented students can attend Yale regardless of financial circumstances.</p>
+              <a href="https://giving.yale.edu/art/scholarships" className="button secondary">Support Scholarships</a>
+            </div>
+
+            <div className="giving-option">
+              <div className="giving-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+                </svg>
+              </div>
+              <h3>Program Support</h3>
+              <p>Funds for specific departments or programs help maintain excellence across all areas of study.</p>
+              <a href="https://giving.yale.edu/art/programs" className="button secondary">Support Programs</a>
+            </div>
+          </div>
+
+          <div className="impact-section">
+            <h2>Your Impact</h2>
+            <div className="impact-stats">
+              <div className="impact-stat">
+                <div className="stat-number">100%</div>
+                <div className="stat-label">of students receive some form of financial aid</div>
+              </div>
+              <div className="impact-stat">
+                <div className="stat-number">$3.5M</div>
+                <div className="stat-label">awarded in scholarships annually</div>
+              </div>
+              <div className="impact-stat">
+                <div className="stat-number">15+</div>
+                <div className="stat-label">visiting artists supported each year</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="donor-recognition">
+            <h2>Donor Recognition</h2>
+            <p>The School of Art recognizes donors through various giving societies and special events. Leadership donors are invited to exclusive studio visits, exhibition previews, and conversations with faculty and students.</p>
+            <div className="recognition-levels">
+              <div className="recognition-level">
+                <h4>Dean's Circle</h4>
+                <p>$10,000 and above</p>
+              </div>
+              <div className="recognition-level">
+                <h4>Director's Circle</h4>
+                <p>$5,000 - $9,999</p>
+              </div>
+              <div className="recognition-level">
+                <h4>Faculty Circle</h4>
+                <p>$1,000 - $4,999</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="planned-giving">
+            <h2>Planned Giving</h2>
+            <p>Including Yale School of Art in your estate plans creates a lasting legacy. Planned gifts can provide tax benefits while supporting future generations of artists.</p>
+            <div className="planned-giving-options">
+              <div className="planned-giving-option">
+                <h4>Bequests</h4>
+                <p>Designate the School as a beneficiary in your will or trust.</p>
+              </div>
+              <div className="planned-giving-option">
+                <h4>Retirement Plans</h4>
+                <p>Name the School as a beneficiary of your IRA or other retirement account.</p>
+              </div>
+              <div className="planned-giving-option">
+                <h4>Life Income Gifts</h4>
+                <p>Create a gift that provides you with income during your lifetime.</p>
+              </div>
+            </div>
+            <a href="https://plannedgiving.yale.edu" className="button primary">Learn More</a>
+          </div>
+
+          <div className="contact-support">
+            <h2>Contact Development</h2>
+            <p>For more information about supporting the Yale School of Art, please contact:</p>
+            <div className="contact-info">
+              <div className="contact-detail">
+                <h5>Development Office</h5>
+                <p>Yale School of Art</p>
+                <p>1156 Chapel Street, New Haven, CT 06511</p>
+              </div>
+              <div className="contact-detail">
+                <h5>Phone</h5>
+                <p>(203) 432-2600</p>
+              </div>
+              <div className="contact-detail">
+                <h5>Email</h5>
+                <p><a href="mailto:art.development@yale.edu">art.development@yale.edu</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 const Footer = () => {
   return (
     <footer className="footer">
@@ -1242,7 +1378,7 @@ const Footer = () => {
               <li><Link to="/admissions">Admissions</Link></li>
               <li><Link to="/events">Events</Link></li>
               <li><Link to="/publication">Publications</Link></li>
-              <li><Link to="/visit">Visit</Link></li>
+              <li><Link to="/support">Support</Link></li>
             </ul>
           </div>
           <div className="footer-col">
