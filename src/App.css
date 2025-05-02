@@ -651,72 +651,7 @@ a:hover {
   z-index: 500;
 }
 
-/* Responsive Styles */
-@media (max-width: 992px) {
-  .main-nav {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: var(--yale-white);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
 
-  .main-nav.open {
-    max-height: 500px;
-    padding: 20px;
-  }
-
-  .main-nav ul {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .mobile-menu-toggle {
-    display: flex;
-  }
-
-  .utility-nav ul {
-    gap: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .header-top-bar .container {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .utility-nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .school-name {
-    font-size: 1.5rem;
-  }
-
-  .sidebar {
-    width: 280px;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-right {
-    gap: 10px;
-  }
-
-  .profile-button span {
-    display: none;
-  }
-
-  .university-name {
-    display: none;
-  }
-}
 
 /* Programs Page */
 .program-tabs {
@@ -818,28 +753,6 @@ a:hover {
   background-color: #f0f7ff;
 }
 
-@media (max-width: 768px) {
-  .program-tabs {
-    gap: 5px;
-  }
-  
-  .program-tabs button {
-    padding: 8px 12px;
-    font-size: 0.9rem;
-  }
-  
-  .program-stats {
-    gap: 15px;
-  }
-  
-  .program-cta {
-    gap: 10px;
-  }
-  
-  .program-cta .button {
-    flex: 1 1 100%;
-  }
-}
 
 /* Faculty Page */
 .faculty-grid {
@@ -1145,58 +1058,6 @@ a:hover {
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .page-header h1 {
-    font-size: 2.2rem;
-  }
-  
-  .page-header p {
-    font-size: 1.1rem;
-  }
-  
-  .admissions-timeline h2,
-  .admissions-requirements h2,
-  .financial-aid h2 {
-    font-size: 1.8rem;
-  }
-  
-  .timeline-item {
-    padding-left: 30px;
-  }
-  
-  .admissions-requirements {
-    padding: 30px;
-  }
-  
-  .admissions-cta {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-header {
-    padding: 60px 0 40px;
-  }
-  
-  .page-header h1 {
-    font-size: 1.8rem;
-  }
-  
-  .timeline-item h3 {
-    font-size: 1.2rem;
-  }
-  
-  .admissions-requirements li {
-    font-size: 1rem;
-  }
-}
-
 /* Events Page */
 .calendar-header {
   display: flex;
@@ -1397,59 +1258,6 @@ a:hover {
   margin: 50px 0;
 }
 
-/* Responsive Styles */
-@media (max-width: 992px) {
-  .publication-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
-  }
-}
-
-@media (max-width: 768px) {
-  .page-header {
-    padding: 60px 0 30px;
-  }
-  
-  .page-header h1 {
-    font-size: 2rem;
-  }
-  
-  .publication-filter {
-    gap: 8px;
-  }
-  
-  .publication-filter button {
-    padding: 8px 15px;
-    font-size: 0.9rem;
-  }
-  
-  .publication-item img {
-    height: 300px;
-  }
-  
-  .publication-info {
-    padding: 30px;
-  }
-}
-
-@media (max-width: 576px) {
-  .publication-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .publication-filter {
-    justify-content: center;
-  }
-  
-  .publication-item img {
-    height: 250px;
-  }
-  
-  .publication-info {
-    padding: 25px;
-  }
-}
-
 /* Footer */
 .footer {
   background-color: var(--yale-dark-blue);
@@ -1586,75 +1394,6 @@ a:hover {
 
 .footer-bottom p {
   font-size: 0.9rem;
-}
-
-/* Responsive Styles */
-@media (max-width: 992px) {
-  .hero {
-    flex-direction: column;
-    min-height: auto;
-  }
-  
-  .hero-content {
-    padding: 40px 0;
-  }
-  
-  .hero-image {
-    height: 300px;
-  }
-}
-
-@media (max-width: 768px) {
-  .header-main .container {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .main-nav ul {
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-  
-  .hero-content h2 {
-    font-size: 2rem;
-  }
-  
-  .section-title {
-    font-size: 1.8rem;
-  }
-  
-  .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .footer-bottom {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero-buttons {
-    flex-direction: column;
-  }
-  
-  .program-stats {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .program-images {
-    grid-template-columns: 1fr;
-  }
-  
-  .program-cta {
-    flex-direction: column;
-  }
-  
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Login Page Styles */
@@ -1828,6 +1567,7 @@ a:hover {
 .forgot-password-modal .button {
   margin-top: 10px;
 }
+
 /* Contact Page Styles */
 .contact-page {
   display: flex;
@@ -1865,7 +1605,7 @@ a:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
-  margin-bottom: 50px;
+  margin-top: 30px;
 }
 
 .contact-info {
@@ -1911,6 +1651,12 @@ a:hover {
   font-size: 1.5rem;
 }
 
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .form-group {
   margin-bottom: 20px;
 }
@@ -1926,9 +1672,9 @@ a:hover {
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 14px 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   font-size: 1rem;
 }
 
@@ -1937,8 +1683,21 @@ a:hover {
   min-height: 120px;
 }
 
+.contact-info,
+.contact-form {
+  width: 100%;
+}
+
 .map-section {
   margin-top: 50px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #f9f9f9;
+  padding: 40px 0;
 }
 
 .map-section h3 {
@@ -1949,20 +1708,10 @@ a:hover {
 }
 
 .map-container {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .page-title {
-    font-size: 1.8rem;
-  }
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 400px;
 }
 
 /* Visit Page Styles */
@@ -2195,26 +1944,6 @@ address {
   font-size: 1.1rem;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-  .location-section .content-card {
-    grid-template-columns: 1fr;
-  }
-  
-  .map-container {
-    height: 300px;
-  }
-}
-
-@media (max-width: 768px) {
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .transport-options {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* Accessibility Features */
 .visually-hidden {
@@ -2229,28 +1958,7 @@ address {
   border: 0;
 }
 
-/* Print Styles */
-@media print {
-  .visit-page {
-    background-color: white !important;
-  }
-  
-  .visit-section {
-    box-shadow: none !important;
-    border: 1px solid #ddd !important;
-    page-break-inside: avoid;
-  }
-  
-  .button {
-    display: none !important;
-  }
-  
-  a::after {
-    content: " (" attr(href) ")";
-    font-size: 0.8em;
-    font-weight: normal;
-  }
-}
+
 
 /* Support Page Styles */
 .support-page {
@@ -2473,7 +2181,33 @@ address {
   margin-bottom: 8px;
 }
 
-/* Responsive Styles */
+/*Responsive adjustments*/
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1.2fr;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .impact-stat,
+  .recognition-level,
+  .planned-giving-option {
+    padding: 15px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .support-intro,
   .donor-recognition,
@@ -2497,18 +2231,391 @@ address {
   }
 }
 
+@media (max-width: 768px) {
+  .support-intro,
+  .donor-recognition,
+  .planned-giving {
+    padding: 40px 20px;
+  }
+  
+  .impact-stats,
+  .recognition-levels,
+  .planned-giving-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .giving-options {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .planned-giving {
+    padding: 40px 20px;
+  }
+}
+
+@media print {
+  .visit-page {
+    background-color: white !important;
+  }
+  
+  .visit-section {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    page-break-inside: avoid;
+  }
+  
+  .button {
+    display: none !important;
+  }
+  
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+}
+
+@media (max-width: 992px) {
+  .location-section .content-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .map-container {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .transport-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-buttons {
+    flex-direction: column;
+  }
+  
+  .program-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .program-images {
+    grid-template-columns: 1fr;
+  }
+  
+  .program-cta {
+    flex-direction: column;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-main .container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .main-nav ul {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .hero-content h2 {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--yale-white);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .main-nav.open {
+    max-height: 500px;
+    padding: 20px;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .utility-nav ul {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-top-bar .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .utility-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .school-name {
+    font-size: 1.5rem;
+  }
+
+  .sidebar {
+    width: 280px;
+  }
+}
+
 @media (max-width: 480px) {
+  .nav-right {
+    gap: 10px;
+  }
+
+  .profile-button span {
+    display: none;
+  }
+
+  .university-name {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .hero-content {
+    padding: 40px 0;
+  }
+  
+  .hero-image {
+    height: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .publication-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .publication-filter {
+    justify-content: center;
+  }
+  
+  .publication-item img {
+    height: 250px;
+  }
+  
+  .publication-info {
+    padding: 25px;
+  }
+}
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .page-header p {
+    font-size: 1.1rem;
+  }
+  
+  .admissions-timeline h2,
+  .admissions-requirements h2,
+  .financial-aid h2 {
+    font-size: 1.8rem;
+  }
+  
+  .timeline-item {
+    padding-left: 30px;
+  }
+  
+  .admissions-requirements {
+    padding: 30px;
+  }
+  
+  .admissions-cta {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 60px 0 40px;
+  }
+  
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .timeline-item h3 {
+    font-size: 1.2rem;
+  }
+  
+  .admissions-requirements li {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .publication-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 60px 0 30px;
+  }
+  
   .page-header h1 {
     font-size: 2rem;
   }
   
-  .impact-stat,
-  .recognition-level,
-  .planned-giving-option {
-    padding: 15px;
+  .publication-filter {
+    gap: 8px;
   }
   
-  .stat-number {
-    font-size: 2rem;
+  .publication-filter button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .publication-item img {
+    height: 300px;
+  }
+  
+  .publication-info {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .program-tabs {
+    gap: 5px;
+  }
+  
+  .program-tabs button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .program-stats {
+    gap: 15px;
+  }
+  
+  .program-cta {
+    gap: 10px;
+  }
+  
+  .program-cta .button {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack form and info */
+    gap: 20px;
+  }
+
+  .contact-info,
+  .contact-form {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .map-section {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    display: block; /* Stack vertically instead of grid */
+  }
+
+  .contact-info,
+  .contact-form {
+    width: 100% !important;
+    margin-bottom: 30px;
+    padding: 20px !important;
+  }
+
+  .map-section {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+  }
+
+  .map-container {
+    width: 100% !important;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .map-section {
+    position: static;
+    margin: 30px 0 0;
+    width: 100%;
+  }
+
+  .map-container {
+    height: 300px;
+    padding: 0 20px;
   }
 }

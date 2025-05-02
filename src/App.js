@@ -32,7 +32,6 @@ const LoginPage = () => {
   const handleResetPassword = (e) => {
     e.preventDefault();
     console.log('Password reset requested for:', resetEmail);
-    // Add your password reset logic here
     setShowForgotPassword(false);
     setResetEmail('');
   };
@@ -275,7 +274,7 @@ const Header = () => {
           <div className="container">
             <div className="logo-container">
               <img
-                src="/images/Yale_logo.jpeg"
+                src="/images/Yale_logo.png"
                 alt="Yale University Logo"
                 className="university-logo"
               />
